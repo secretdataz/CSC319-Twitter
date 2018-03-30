@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/twitter-deepfarkfantasy.iml" filepath="$PROJECT_DIR$/.idea/modules/twitter-deepfarkfantasy.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/twitter-deepfarkfantasy_main.iml" filepath="$PROJECT_DIR$/.idea/modules/twitter-deepfarkfantasy_main.iml" group="twitter-deepfarkfantasy" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/twitter-deepfarkfantasy_test.iml" filepath="$PROJECT_DIR$/.idea/modules/twitter-deepfarkfantasy_test.iml" group="twitter-deepfarkfantasy" />
+    </modules>
+  </component>
+</project>
