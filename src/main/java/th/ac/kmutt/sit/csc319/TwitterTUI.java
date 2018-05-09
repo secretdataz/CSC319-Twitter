@@ -1,5 +1,6 @@
 package th.ac.kmutt.sit.csc319;
 
+import twitter4j.Trends;
 import twitter4j.TwitterException;
 
 import java.util.Comparator;
@@ -18,9 +19,7 @@ public class TwitterTUI {
 
     public static void main(String[] args) {
         TwitterTUI self = new TwitterTUI();
-        //while(true) {
-            self.mainLoop();
-        //}
+        self.select();
     }
 
     private int promptInt(String prompt, int defaultValue) {
@@ -45,6 +44,21 @@ public class TwitterTUI {
             return false;
         else
             return true;
+    }
+
+    private void select() {
+        boolean selection = promptBoolean("Do you want to see the trends first?", true);
+        if(selection)
+            trends();
+        mainLoop();
+    }
+
+    private void trends() {
+        int maxTrends = promptInt("How many trends do you want?", 5);
+        Trends trends = twitterService.getThailandTrends();
+        for (int i = 0; i < trends.getTrends().length && i < maxTrends; i++) {
+            System.out.println("#" + (i+1) + ": " + trends.getTrends()[i].getName());
+        }
     }
 
     private void mainLoop() {

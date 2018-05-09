@@ -33,6 +33,16 @@ public class TwitterService {
         this.twitter = twitter;
     }
 
+    public Trends getThailandTrends() {
+        try {
+            Trends trends = twitter.getPlaceTrends(23424960);
+            return trends;
+        } catch (TwitterException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public List<Tweet> getTweetsAbout(String queryString, int maxAmount, boolean allowRT, boolean allowQuote, int minRT, int minFav) throws TwitterException {
         maxAmount = Math.min(maxAmount, TWEET_AMOUNT_HARD_LIMIT);
         List<Status> tweets = new ArrayList<>();
