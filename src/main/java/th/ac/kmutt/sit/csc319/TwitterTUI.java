@@ -2,8 +2,10 @@ package th.ac.kmutt.sit.csc319;
 
 import twitter4j.TwitterException;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class TwitterTUI {
 
@@ -48,6 +50,7 @@ public class TwitterTUI {
     private void mainLoop() {
         final boolean allowRT;
         final boolean allowQuote;
+        final byte sortType;
         final int minRT;
         final int minFav;
         int amount;
@@ -65,11 +68,13 @@ public class TwitterTUI {
             else
                 minRT = 0;
             minFav = Math.max(0, promptInt("Include only tweets with how many favorites?", 0));
+            sortType = (byte)promptInt("Do you want to sort? Type 0:Not sort, 1:Sort by Retweets and 2: Sort by Like", 0);
         } else {
             allowRT = true;
             allowQuote = true;
             minRT = 0;
             minFav = 0;
+            sortType = 0;
         }
         List<Tweet> statusList;
         try {
@@ -86,8 +91,12 @@ public class TwitterTUI {
             System.out.println();
             return;
         }
-
+        if(sortType == 1) {
+            statusList = statusList.stream().sorted(Comparator.comparing(Tweet::getRetweetCount).reversed()).collect(Collectors.toList());
+        } else if(sortType == 2) {
+            statusList = statusList.stream().sorted(Comparator.comparing(Tweet::getFavoriteCount).reversed()).collect(Collectors.toList());
+        }
         System.out.println("Displaying " + Utils.convertIntToShortString(statusList.size()) + " tweets that match the criteria...");
-        statusList.stream().forEach(e -> System.out.println("@" + e.getCreatorHandle() +": " + e.getText()));
+        statusList.stream().forEach(e -> System.out.println("@" + e.getCreatorHandle() +" [" + e.getRetweetCount() + " RT, " + e.getFavoriteCount() + " Fav]: " + e.getText()));
     }
 }
